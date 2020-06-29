@@ -50,9 +50,10 @@ export class Request {
     return new this(...args);
   }
 
-  constructor(url, method, attrs = {}, headers = {}) {
+  constructor(url, method, attrs = {}, headers = {}, timeout = 2000) {
     this._xhr = new Request.XMLHttpRequest();
     this._formData = new Request.FormData();
+    this._xhr.timeout = timeout;
 
     this._xhr.open(method, url);
 
@@ -89,6 +90,11 @@ export class Request {
     if (this._xhr.upload) {
       this._xhr.upload.onprogress = decorateProgressFn(fn);
     }
+    return this;
+  }
+
+  timeout(fn) {
+    this._xhr.ontimeout = fn;
     return this;
   }
 

@@ -2,6 +2,8 @@
 
 ## Project forked from react-native-aws3 Only change of s3 bucket url
 
+Add timeout
+
 Default link will be
 
 ```javascript
@@ -62,7 +64,9 @@ const options = {
   successActionStatus: 201
 }
 
-RNS3.put(file, options).then(response => {
+RNS3.put(file, options)
+.timeout(callback)
+.then(response => {
   if (response.status !== 201)
     throw new Error("Failed to upload image to S3");
   console.log(response.body);
